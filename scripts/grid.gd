@@ -43,7 +43,6 @@ func is_goal(cell: Vector2i) -> bool:
 	return get_tile_type(cell) == "goal"
 
 func is_blocked(cell: Vector2i) -> bool:
-	print("Is blocked? Cell: ", cell)
 	return is_wall(cell)
 
 func is_exit(cell: Vector2i) -> bool:

@@ -11,25 +11,49 @@ var current_level: Node = null
 
 
 func _ready():
-	
 	# Defer loading until the scene tree is fully ready
-	call_deferred("_load_initial_level")
+	load_level_deferred(starting_level, starting_spawn)
 
-func _load_initial_level():
-	load_level(starting_level, starting_spawn)
+func load_level_deferred(scene_path: String, spawn_id: String):
+	call_deferred("load_level", scene_path, spawn_id)
 	
 func load_level(scene_path: String, spawn_id: String):
-	# Remove existing level if any
-	if current_level:
+	# Disable player while loading a new level
+	var player := get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_process(true)
+		player.grid = null
+
+
+
+	# Remove old level
+	if current_level and is_instance_valid(current_level):
 		current_level.queue_free()
 		current_level = null
+		
+
+	# IMPORTANT: let the old level fully exit
+	await get_tree().process_frame
 
 	# Load new level
 	var level_scene := load(scene_path)
+	if level_scene == null:
+		push_error("LevelManager: Failed to load level scene: " + scene_path)
+		return
+		
 	current_level = level_scene.instantiate()
 	get_parent().add_child(current_level)
 
+
+	# IMPORTANT: wait for Grid + Spawn to be ready
+	await get_tree().process_frame
+	
 	position_player(spawn_id)
+
+
+	# Reenable player
+	if player:
+		player.set_process(true)
 
 
 func position_player(spawn_id: String):
@@ -37,30 +61,15 @@ func position_player(spawn_id: String):
 	var spawn := get_tree().get_first_node_in_group(spawn_id)
 	var grid := get_tree().get_first_node_in_group("grid")
 	
-	if player and spawn and grid:
-		player.initialize(grid, spawn.global_position)
-
-
-func transition_to(target_scene: String, spawn_id: String):
-	if transitioning:
+	
+	if not player:
+		push_error("LevelManager: Player not found")
 		return
-
-	transitioning = true
-	await fade_out()
-
-	get_tree().change_scene_to_file(target_scene)
-
-	await get_tree().process_frame
-	position_player(spawn_id)
-
-	await fade_in()
-	transitioning = false
-
-
-func fade_out():
-	# Placeholder – replace with real fade later
-	await get_tree().create_timer(fade_time).timeout
-
-
-func fade_in():
-	await get_tree().create_timer(fade_time).timeout
+	if not grid:
+		push_error("LevelManager: Grid not found")
+		return
+	if not spawn:
+		push_error("LevelManager: Spawn not found: " + spawn_id)
+		return
+		
+	player.initialize(grid, spawn.global_position)

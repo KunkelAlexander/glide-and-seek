@@ -50,24 +50,24 @@ func initialize(new_grid: Node, spawn_world_pos: Vector2):
 
 	# Snap player to exact grid-aligned WORLD position
 	global_position = grid.grid_to_world(grid_pos)
+	
+	print("Intialise player pos to ", grid_pos, " ", global_position)
 
 	state = State.IDLE
 	update_animation(false)
 	
 func attempt_move(dir: Vector2i):
-	var target := grid_pos + dir
 	
-	print("target: ", target)
+	if grid == null or not is_instance_valid(grid):
+		return
+	var target := grid_pos + dir
 
 	if grid.is_blocked(target):
-		print("Is blocked")
 		return
 
 	if grid.is_ice(target):
-		print("Sliding")
 		start_sliding(dir)
 	else:
-		print("Move one tile")
 		move_one_tile(target)
 
 
@@ -87,6 +87,7 @@ func move_one_tile(cell: Vector2i):
 	tween.finished.connect(func():
 		state = State.IDLE
 		update_animation(false)
+		check_for_exit()
 	)
 
 
@@ -104,6 +105,7 @@ func slide_step():
 	if grid.is_blocked(next):
 		state = State.IDLE
 		update_animation(false)
+		check_for_exit()
 		return
 
 	# Move into the next tile
@@ -125,6 +127,7 @@ func slide_step():
 		else:
 			state = State.IDLE
 			update_animation(false)
+			check_for_exit()
 	)
 
 
@@ -149,3 +152,16 @@ func update_animation(moving: bool):
 				sprite.play("idle_left")
 			Vector2i.RIGHT:
 				sprite.play("idle_right")
+
+func check_for_exit():
+	if not grid.is_exit(grid_pos):
+		return
+
+	var data = grid.get_exit_data(grid_pos)
+	if data.is_empty():
+		return
+
+	var manager := get_tree().get_first_node_in_group("level_manager")
+	if manager:
+		print("Load level deferred with ", data.target, ", ", data.spawn)
+		manager.load_level_deferred(data.target, data.spawn)
