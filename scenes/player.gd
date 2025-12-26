@@ -3,7 +3,10 @@ extends Node2D
 @export var grid: Node
 @export var move_time := 0.15
 
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 var grid_pos: Vector2i
+var facing: Vector2i = Vector2i.DOWN
 
 enum State {
 	IDLE,
@@ -17,9 +20,12 @@ var slide_dir := Vector2i.ZERO
 
 func _ready():
 	assert(grid != null, "Player: Grid not assigned!")
+
 	grid_pos = grid.world_to_grid(global_position)
 	global_position = grid.grid_to_world(grid_pos)
-	queue_redraw()
+
+	update_animation(false)
+
 
 func _process(_delta):
 	if state != State.IDLE:
@@ -27,16 +33,17 @@ func _process(_delta):
 
 	var dir := Vector2i.ZERO
 
-	if Input.is_action_just_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right"):
 		dir = Vector2i.RIGHT
-	elif Input.is_action_just_pressed("ui_left"):
+	elif Input.is_action_pressed("ui_left"):
 		dir = Vector2i.LEFT
-	elif Input.is_action_just_pressed("ui_down"):
+	elif Input.is_action_pressed("ui_down"):
 		dir = Vector2i.DOWN
-	elif Input.is_action_just_pressed("ui_up"):
+	elif Input.is_action_pressed("ui_up"):
 		dir = Vector2i.UP
 
 	if dir != Vector2i.ZERO:
+		facing = dir
 		attempt_move(dir)
 
 
@@ -51,9 +58,11 @@ func attempt_move(dir: Vector2i):
 	else:
 		move_one_tile(target)
 
+
 func move_one_tile(cell: Vector2i):
 	state = State.MOVING
 	grid_pos = cell
+	update_animation(true)
 
 	var tween := create_tween()
 	tween.tween_property(
@@ -62,15 +71,19 @@ func move_one_tile(cell: Vector2i):
 		grid.grid_to_world(grid_pos),
 		move_time
 	)
+
 	tween.finished.connect(func():
 		state = State.IDLE
-		queue_redraw()
+		update_animation(false)
 	)
+
 
 func start_sliding(dir: Vector2i):
 	state = State.SLIDING
 	slide_dir = dir
+	update_animation(false)
 	slide_step()
+
 
 func slide_step():
 	var next := grid_pos + slide_dir
@@ -78,7 +91,7 @@ func slide_step():
 	# Stop BEFORE moving if blocked
 	if grid.is_blocked(next):
 		state = State.IDLE
-		queue_redraw()
+		update_animation(false)
 		return
 
 	# Move into the next tile
@@ -93,17 +106,34 @@ func slide_step():
 	)
 
 	tween.finished.connect(func():
-		# Decide if we can continue sliding
 		var following := grid_pos + slide_dir
 
 		if grid.is_ice(grid_pos) and not grid.is_blocked(following):
 			slide_step()
 		else:
 			state = State.IDLE
-			queue_redraw()
+			update_animation(false)
 	)
 
 
-
-func _draw():
-	draw_circle(Vector2.ZERO, 12, Color.BLACK)
+func update_animation(moving: bool):
+	if moving:
+		match facing:
+			Vector2i.UP:
+				sprite.play("walk_up")
+			Vector2i.DOWN:
+				sprite.play("walk_down")
+			Vector2i.LEFT:
+				sprite.play("walk_left")
+			Vector2i.RIGHT:
+				sprite.play("walk_right")
+	else:
+		match facing:
+			Vector2i.UP:
+				sprite.play("idle_up")
+			Vector2i.DOWN:
+				sprite.play("idle_down")
+			Vector2i.LEFT:
+				sprite.play("idle_left")
+			Vector2i.RIGHT:
+				sprite.play("idle_right")
