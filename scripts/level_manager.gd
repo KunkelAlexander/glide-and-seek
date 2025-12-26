@@ -6,6 +6,8 @@ var transitioning := false
 
 @export var starting_level := "res://scenes/level_1.tscn"
 @export var starting_spawn := "entrance_a"
+@onready var fade_rect: ColorRect = $"../Fade/FadeRect"
+
 
 var current_level: Node = null
 
@@ -23,6 +25,9 @@ func load_level(scene_path: String, spawn_id: String):
 	if player:
 		player.set_process(true)
 		player.grid = null
+
+
+	await fade_out()
 
 
 
@@ -51,6 +56,8 @@ func load_level(scene_path: String, spawn_id: String):
 	position_player(spawn_id)
 
 
+	await fade_in()
+
 	# Reenable player
 	if player:
 		player.set_process(true)
@@ -73,3 +80,29 @@ func position_player(spawn_id: String):
 		return
 		
 	player.initialize(grid, spawn.global_position)
+
+func fade_out():
+	fade_rect.visible = true
+
+	var tween := create_tween()
+	tween.tween_property(
+		fade_rect,
+		"modulate:a",
+		1.0,
+		fade_time
+	)
+
+	await tween.finished
+
+
+func fade_in():
+	var tween := create_tween()
+	tween.tween_property(
+		fade_rect,
+		"modulate:a",
+		0.0,
+		fade_time
+	)
+
+	await tween.finished
+	fade_rect.visible = false

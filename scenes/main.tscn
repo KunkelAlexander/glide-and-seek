@@ -187,3 +187,14 @@ speed_scale = 2.0
 
 [node name="LevelManager" type="Node2D" parent="." groups=["level_manager"]]
 script = ExtResource("3_tbgi4")
+
+[node name="Fade" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="FadeRect" type="ColorRect" parent="Fade"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
