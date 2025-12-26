@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var grid: Node
+var grid: Node
 @export var move_time := 0.15
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -19,11 +19,6 @@ var slide_dir := Vector2i.ZERO
 
 
 func _ready():
-	assert(grid != null, "Player: Grid not assigned!")
-
-	grid_pos = grid.world_to_grid(global_position)
-	global_position = grid.grid_to_world(grid_pos)
-
 	update_animation(false)
 
 
@@ -47,15 +42,32 @@ func _process(_delta):
 		attempt_move(dir)
 
 
+func initialize(new_grid: Node, spawn_world_pos: Vector2):
+	grid = new_grid
+
+	# Convert spawn WORLD position to GRID position
+	grid_pos = grid.world_to_grid(spawn_world_pos)
+
+	# Snap player to exact grid-aligned WORLD position
+	global_position = grid.grid_to_world(grid_pos)
+
+	state = State.IDLE
+	update_animation(false)
+	
 func attempt_move(dir: Vector2i):
 	var target := grid_pos + dir
+	
+	print("target: ", target)
 
 	if grid.is_blocked(target):
+		print("Is blocked")
 		return
 
 	if grid.is_ice(target):
+		print("Sliding")
 		start_sliding(dir)
 	else:
+		print("Move one tile")
 		move_one_tile(target)
 
 

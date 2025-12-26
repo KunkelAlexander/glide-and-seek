@@ -6,8 +6,7 @@ extends Node2D
 func _ready():
 	assert(world != null)
 
-	var test_cell := Vector2i(0, 0)
-	print("Tile at ", test_cell, ": ", get_tile_type(test_cell))
+	
 # ─────────────────────────────
 # Coordinate conversion
 # ─────────────────────────────
@@ -44,4 +43,17 @@ func is_goal(cell: Vector2i) -> bool:
 	return get_tile_type(cell) == "goal"
 
 func is_blocked(cell: Vector2i) -> bool:
+	print("Is blocked? Cell: ", cell)
 	return is_wall(cell)
+
+func is_exit(cell: Vector2i) -> bool:
+	return get_tile_type(cell) == "exit"
+
+func get_exit_data(cell: Vector2i) -> Dictionary:
+	var data := world.get_cell_tile_data(cell)
+	if data == null:
+		return {}
+	return {
+		"target": data.get_custom_data("target"),
+		"spawn": data.get_custom_data("spawn")
+	}
