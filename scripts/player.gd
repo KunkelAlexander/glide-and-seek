@@ -29,6 +29,12 @@ func _process(_delta):
 
 	var dir := Vector2i.ZERO
 	
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		if not OS.has_feature("web"):
+			get_tree().quit()
+		return
+		
 	if Input.is_action_just_pressed("reset"): 
 		initialize(grid, spawn_world_pos)
 
