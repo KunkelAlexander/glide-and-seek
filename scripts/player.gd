@@ -6,6 +6,7 @@ var grid: Node
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var grid_pos: Vector2i
+var spawn_world_pos: Vector2
 var facing: Vector2i = Vector2i.DOWN
 
 enum State {
@@ -27,6 +28,9 @@ func _process(_delta):
 		return
 
 	var dir := Vector2i.ZERO
+	
+	if Input.is_action_just_pressed("reset"): 
+		initialize(grid, spawn_world_pos)
 
 	if Input.is_action_pressed("ui_right"):
 		dir = Vector2i.RIGHT
@@ -42,8 +46,10 @@ func _process(_delta):
 		attempt_move(dir)
 
 
-func initialize(new_grid: Node, spawn_world_pos: Vector2):
+func initialize(new_grid: Node, _spawn_world_pos: Vector2):
 	grid = new_grid
+	
+	spawn_world_pos = _spawn_world_pos
 
 	# Convert spawn WORLD position to GRID position
 	grid_pos = grid.world_to_grid(spawn_world_pos)

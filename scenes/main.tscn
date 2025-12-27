@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqlnqqfubuuho"]
+[gd_scene load_steps=22 format=3 uid="uid://cqlnqqfubuuho"]
 
 [ext_resource type="Script" uid="uid://b2563xqmwahww" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://b8wm37mkadrq4" path="res://assets/character.png" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://rkxbj5nuagup" path="res://scripts/level_manager.gd" id="3_tbgi4"]
+[ext_resource type="AudioStream" uid="uid://qaxpjv6ey58i" path="res://assets/Ice-Shine-Bells.ogg" id="4_jyhfs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04qyp"]
 atlas = ExtResource("2_jyhfs")
@@ -201,3 +202,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("4_jyhfs")
+autoplay = true
