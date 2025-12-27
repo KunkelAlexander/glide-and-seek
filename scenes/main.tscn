@@ -179,7 +179,7 @@ position = Vector2(96, 96)
 script = ExtResource("1_sugp2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-position = Vector2(0, -10)
+position = Vector2(0, -12)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_rnjyy")
 animation = &"walk_down"
