@@ -1,11 +1,9 @@
-# Trapped in Ice
+# Glide and seek
 
-A tiny Pokémon Crystal–style ice cave prototype in Godot: step onto ice, commit to the slide, and try not to get stuck.
+A tiny Pokémon–style ice cave prototype in Godot: step onto ice, commit to the slide, and try not to get stuck.
+I used to love these in the Pokémon games.
 
-
-## Devlog
-
-### 2025-12-27 — First playable cave
+## Features
 - Built two small levels using the TileMap editor.
 - Implemented grid-locked movement + ice sliding (no physics bodies).
 - Added ladders as exits to swap levels and respawn at entrances.
@@ -13,31 +11,32 @@ A tiny Pokémon Crystal–style ice cave prototype in Godot: step onto ice, comm
 - Split level editing into a functional “logic layer” and decorative layers.
 - Hooked up background music.
 
+## Devlog
 
-## 1. How to make levels?
+### 1. How to make levels?
 <img src="figures/Screenshot from 2025-12-27 08-43-14.png" width="800" alt="Simple level building using the spriteset">
 
 Simple level building using the spriteset.
 
-## 2. How to add a player?
+### 2. How to add a player?
 <img src="figures/Screenshot from 2025-12-27 08-44-19.png" width="800" alt="The player sprite">
 
 The player sprite.
 
-## 3. How to change between levels?
+### 3. How to change between levels?
 
 <img src="figures/Screenshot from 2025-12-27 08-45-01.png" width="800" alt="The exit via a ladder">
 
 Add the exit via a ladder. Currently, the tileset encodes which level loads and where the player spawns.
 
 
-## 4. How to handle different screen sizes?
+### 4. How to handle different screen sizes?
 
 <img src="figures/Screenshot from 2025-12-27 08-49-09.png" width="800" alt="A dynamic camera following the player">
 
 Add a dynamic camera following the player. This means that the game can run with different screen sizes.
 
-## 5. How to improve level editing?
+### 5. How to improve level editing?
 
 <img src="figures/Screenshot from 2025-12-27 10-31-54.png" width="800" alt="A separate logical tilemap layer describing the level logic">
 
