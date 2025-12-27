@@ -19,7 +19,7 @@ config/icon="uid://b0gc62lo7p382"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [global_group]
 

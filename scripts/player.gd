@@ -9,6 +9,13 @@ var grid_pos: Vector2i
 var spawn_world_pos: Vector2
 var facing: Vector2i = Vector2i.DOWN
 
+var touch_active := false
+var touch_index := -1
+var touch_start_pos: Vector2
+var touch_dir := Vector2i.ZERO
+
+const SWIPE_THRESHOLD := 40
+
 enum State {
 	IDLE,
 	MOVING,
@@ -23,12 +30,40 @@ func _ready():
 	update_animation(false)
 
 
+func _input(event):
+	# Touch start
+	if event is InputEventScreenTouch and event.pressed:
+		touch_active = true
+		touch_index = event.index
+		touch_start_pos = event.position
+		touch_dir = Vector2i.ZERO
+		
+	# Touch release (only if NO drag happened)
+	elif event is InputEventScreenTouch and not event.pressed:
+		_release_touch()
+
+	# Drag (swipe)
+	elif event is InputEventScreenDrag and event.index == touch_index:
+		var delta = event.position - touch_start_pos
+
+		if abs(delta.x) > abs(delta.y):
+			if abs(delta.x) > SWIPE_THRESHOLD:
+				touch_dir = Vector2i.RIGHT if delta.x > 0 else Vector2i.LEFT
+		else:
+			if abs(delta.y) > SWIPE_THRESHOLD:
+				touch_dir = Vector2i.DOWN if delta.y > 0 else Vector2i.UP
+				
+func _release_touch():
+	touch_active = false
+	touch_dir = Vector2i.ZERO
+	touch_index = -1
+
+			
 func _process(_delta):
 	if state != State.IDLE:
 		return
 
 	var dir := Vector2i.ZERO
-	
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		if not OS.has_feature("web"):
@@ -36,7 +71,7 @@ func _process(_delta):
 		return
 		
 	if Input.is_action_just_pressed("reset"): 
-		initialize(grid, spawn_world_pos)
+		reset_game()
 
 	if Input.is_action_pressed("ui_right"):
 		dir = Vector2i.RIGHT
@@ -47,6 +82,10 @@ func _process(_delta):
 	elif Input.is_action_pressed("ui_up"):
 		dir = Vector2i.UP
 
+	# Touch input (swipe + hold)
+	elif touch_active and touch_dir != Vector2i.ZERO:
+		dir = touch_dir
+		
 	if dir != Vector2i.ZERO:
 		facing = dir
 		attempt_move(dir)
@@ -67,6 +106,9 @@ func initialize(new_grid: Node, _spawn_world_pos: Vector2):
 
 	state = State.IDLE
 	update_animation(false)
+
+func reset_game():
+	initialize(grid, spawn_world_pos)
 	
 func attempt_move(dir: Vector2i):
 	

@@ -8,8 +8,9 @@ I used to love these in the Pokémon games.
 - Implemented grid-locked movement + ice sliding (no physics bodies).
 - Added ladders as exits to swap levels and respawn at entrances.
 - Added a camera that follows the player.
-- Split level editing into a functional “logic layer” and decorative layers.
 - Hooked up background music.
+- Levels are authored in Godot's TileMap editor - every level corresponds to a separate scene.
+- Logic is kept on a plain-color TileMap layer (walls / ice / exits), with visuals layered on top.
 
 ## Devlog
 
@@ -76,12 +77,6 @@ trapped-in-ice
 
 ```
 
-
-## Notes (design)
-- Levels are authored in the TileMap editor.
-- Logic is kept on a plain-color TileMap layer (walls / ice / exits), with visuals layered on top.
-- Level loading is handled by `LevelManager`, which injects the new `Grid` reference into the persistent player.
-
 ## Acknowledgements
 - Cave tiles: https://www.deviantart.com/descendedfromullr/art/Ice-Cave-Tileset-823235944
     - Cave Textures - Phyromatical - https://www.deviantart.com/phyromatical
@@ -89,3 +84,5 @@ trapped-in-ice
 - Player sprite: https://jordiebowen.weebly.com/3d-modelling--animation/3d-pixel-character
 - Background music: https://opengameart.org/content/ice-shine-bells
 - Also check out this amazing blog post: https://www.jeremyenglish.org/ice-maze.html
+
+
