@@ -88,3 +88,4 @@ trapped-in-ice
     - Cave Textures - EVoLiNa - https://www.deviantart.com/evolina
 - Player sprite: https://jordiebowen.weebly.com/3d-modelling--animation/3d-pixel-character
 - Background music: https://opengameart.org/content/ice-shine-bells
+- Also check out this amazing blog post: https://www.jeremyenglish.org/ice-maze.html

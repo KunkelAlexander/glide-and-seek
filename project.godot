@@ -14,11 +14,12 @@ config/name="Glide and Seek"
 config/description="A tiny Pokémon-style ice cave prototype in Godot: step onto ice, commit to the slide, and try not to get stuck. s"
 run/main_scene="uid://cqlnqqfubuuho"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://ds6tauvr453tu"
+config/icon="uid://b0gc62lo7p382"
 
 [display]
 
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 
 [global_group]
 
