@@ -198,7 +198,6 @@ script = ExtResource("3_tbgi4")
 layer = 100
 
 [node name="FadeRect" type="ColorRect" parent="Fade"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
