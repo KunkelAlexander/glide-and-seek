@@ -1,9 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://cqlnqqfubuuho"]
+[gd_scene load_steps=25 format=3 uid="uid://cqlnqqfubuuho"]
 
 [ext_resource type="Script" uid="uid://b2563xqmwahww" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://b8wm37mkadrq4" path="res://assets/character.png" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://rkxbj5nuagup" path="res://scripts/level_manager.gd" id="3_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://qaxpjv6ey58i" path="res://assets/Ice-Shine-Bells.ogg" id="4_jyhfs"]
+[ext_resource type="FontFile" uid="uid://bbpijmudir5rg" path="res://assets/Dynalight-Regular.otf" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://cvv53i6fuwyt0" path="res://scenes/title.gd" id="5_tefeu"]
+[ext_resource type="FontFile" uid="uid://bkrbslb654s2h" path="res://assets/PressStart2P.ttf" id="7_o6xl0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04qyp"]
 atlas = ExtResource("2_jyhfs")
@@ -208,3 +211,49 @@ color = Color(0, 0, 0, 1)
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("4_jyhfs")
 autoplay = true
+
+[node name="Title" type="CanvasLayer" parent="."]
+script = ExtResource("5_tefeu")
+
+[node name="Control" type="Control" parent="Title"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Title/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("5_tbgi4")
+theme_override_font_sizes/font_size = 72
+text = "Glide and Seek"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controls" type="CanvasLayer" parent="Title"]
+
+[node name="Control" type="Control" parent="Title/Controls"]
+layout_mode = 3
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = 20.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="Title/Controls/Control"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("7_o6xl0")
+theme_override_font_sizes/font_size = 20
+text = "Walk: WASD
+Reset: R"
+vertical_alignment = 1
