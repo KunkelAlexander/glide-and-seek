@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://byhwxjgsqd3sg"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://byhwxjgsqd3sg"]
 
 [ext_resource type="Texture2D" uid="uid://go0a54twe8ux" path="res://assets/ice.png" id="1_qow5b"]
+[ext_resource type="Texture2D" uid="uid://b8fby1c5q2gb" path="res://assets/logic_tileset_32x32.png" id="2_sym7y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sym7y"]
 texture = ExtResource("1_qow5b")
@@ -886,6 +887,39 @@ texture_region_size = Vector2i(32, 32)
 14:69/0 = 0
 15:69/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ygyh"]
+texture = ExtResource("2_sym7y")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = "ground"
+1:0/0 = 0
+1:0/0/custom_data_0 = "ice"
+2:0/0 = 0
+2:0/0/custom_data_0 = "wall"
+3:0/0 = 0
+3:0/0/custom_data_0 = "exit"
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+3:3/0/custom_data_0 = "exit"
+4:3/0 = 0
+5:3/0 = 0
+
 [resource]
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "type"
@@ -895,3 +929,4 @@ custom_data_layer_1/type = 4
 custom_data_layer_2/name = "spawn"
 custom_data_layer_2/type = 4
 sources/0 = SubResource("TileSetAtlasSource_sym7y")
+sources/2 = SubResource("TileSetAtlasSource_7ygyh")
