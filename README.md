@@ -7,7 +7,7 @@ I used to love these in the Pokémon games.
 - Built two small levels using the TileMap editor.
 - Implemented grid-locked movement + ice sliding (no physics bodies).
 - Added ladders as exits to swap levels and respawn at entrances.
-- Added a camera that follows the player.
+- Added a camera that follows the player and zooms in on high-resolution screens
 - Hooked up background music.
 - Levels are authored in Godot's TileMap editor - every level corresponds to a separate scene.
 - Logic is kept on a plain-color TileMap layer (walls / ice / exits), with visuals layered on top.
@@ -42,6 +42,12 @@ Add a dynamic camera following the player. This means that the game can run with
 <img src="figures/Screenshot from 2025-12-27 10-31-54.png" width="800" alt="A separate logical tilemap layer describing the level logic">
 
 Add separate logical tilemap layer describing the level logic. This means that the visuals and the level logic are decoupled.
+
+
+### 5. How to design for mobile devices?
+<img src="figures/Screenshot from 2025-12-27 23-03-03.png" width="800" alt="How to design for mobile devices">
+
+Add a reset button, update camera upon viewport resize to show 30 tiles in the longest display direction.
 
 ## How to run
 
