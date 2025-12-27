@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://rkxbj5nuagup" path="res://scripts/level_manager.gd" id="3_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://qaxpjv6ey58i" path="res://assets/Ice-Shine-Bells.ogg" id="4_jyhfs"]
 [ext_resource type="FontFile" uid="uid://bbpijmudir5rg" path="res://assets/Dynalight-Regular.otf" id="5_tbgi4"]
-[ext_resource type="Script" uid="uid://cvv53i6fuwyt0" path="res://scenes/title.gd" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://cvv53i6fuwyt0" path="res://title.gd" id="5_tefeu"]
 [ext_resource type="FontFile" uid="uid://bkrbslb654s2h" path="res://assets/PressStart2P.ttf" id="7_o6xl0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04qyp"]
