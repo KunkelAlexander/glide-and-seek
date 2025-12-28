@@ -1,13 +1,16 @@
-[gd_scene load_steps=27 format=3 uid="uid://cqlnqqfubuuho"]
+[gd_scene load_steps=30 format=3 uid="uid://cqlnqqfubuuho"]
 
 [ext_resource type="Script" uid="uid://b2563xqmwahww" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://b8wm37mkadrq4" path="res://assets/character.png" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://rkxbj5nuagup" path="res://scripts/level_manager.gd" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://c5hcyj8pxvhrj" path="res://scenes/camera_2d.gd" id="3_tipki"]
 [ext_resource type="AudioStream" uid="uid://qaxpjv6ey58i" path="res://assets/Ice-Shine-Bells.ogg" id="4_jyhfs"]
+[ext_resource type="AudioStream" uid="uid://dbtsso4mcfhma" path="res://assets/icespells/ice_short.ogg" id="4_ya4ey"]
 [ext_resource type="Script" uid="uid://bag2clyfxeghh" path="res://scenes/audio_manager.gd" id="5_85g3d"]
 [ext_resource type="FontFile" uid="uid://bbpijmudir5rg" path="res://assets/Dynalight-Regular.otf" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://cvv53i6fuwyt0" path="res://title.gd" id="5_tefeu"]
+[ext_resource type="AudioStream" uid="uid://bjn3fitgf3820" path="res://assets/qubodup-wet_snow_steps/snow_step_wet-01.ogg" id="5_ya4ey"]
+[ext_resource type="AudioStream" uid="uid://dqj1mpka2q1k3" path="res://assets/positive.ogg" id="6_eb6dy"]
 [ext_resource type="FontFile" uid="uid://bkrbslb654s2h" path="res://assets/PressStart2P.ttf" id="7_o6xl0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04qyp"]
@@ -193,6 +196,16 @@ speed_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 script = ExtResource("3_tipki")
+
+[node name="SlideSFX" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("4_ya4ey")
+
+[node name="WalkSFX" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("5_ya4ey")
+volume_db = -10.0
+
+[node name="PositiveSFX" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("6_eb6dy")
 
 [node name="LevelManager" type="Node2D" parent="." groups=["level_manager"]]
 script = ExtResource("3_tbgi4")

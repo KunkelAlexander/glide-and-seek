@@ -4,6 +4,11 @@ var grid: Node
 @export var move_time := 0.15
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var walk_sfx: AudioStreamPlayer2D = $WalkSFX
+@onready var slide_sfx: AudioStreamPlayer2D = $SlideSFX
+@onready var pos_sfx: AudioStreamPlayer2D = $PositiveSFX
+
+
 
 var grid_pos: Vector2i
 var spawn_world_pos: Vector2
@@ -129,6 +134,10 @@ func move_one_tile(cell: Vector2i):
 	state = State.MOVING
 	grid_pos = cell
 	update_animation(true)
+	
+	if walk_sfx:
+		walk_sfx.play()
+
 
 	var tween := create_tween()
 	tween.tween_property(
@@ -149,6 +158,10 @@ func start_sliding(dir: Vector2i):
 	state = State.SLIDING
 	slide_dir = dir
 	update_animation(false)
+	
+	if slide_sfx and not slide_sfx.playing:
+		slide_sfx.play()
+		
 	slide_step()
 
 
@@ -159,6 +172,10 @@ func slide_step():
 	if grid.is_blocked(next):
 		state = State.IDLE
 		update_animation(false)
+		
+		if slide_sfx:
+			slide_sfx.stop()
+		
 		check_for_exit()
 		return
 
@@ -181,6 +198,9 @@ func slide_step():
 		else:
 			state = State.IDLE
 			update_animation(false)
+			
+			if slide_sfx:
+				slide_sfx.stop()
 			check_for_exit()
 	)
 
@@ -217,5 +237,5 @@ func check_for_exit():
 
 	var manager := get_tree().get_first_node_in_group("level_manager")
 	if manager:
-		print("Load level deferred with ", data.target, ", ", data.spawn)
+		pos_sfx.play()
 		manager.load_level_deferred(data.target, data.spawn)

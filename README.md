@@ -91,3 +91,5 @@ trapped-in-ice
 - Background music: https://opengameart.org/content/ice-shine-bells
 - Also check out this amazing blog post: https://www.jeremyenglish.org/ice-maze.html
 - Snow sound: https://opengameart.org/content/walking-on-snow-sound
+- Another snow sound: https://opengameart.org/content/9-wet-snow-steps
+- Ice spells: https://opengameart.org/content/ice-spells
