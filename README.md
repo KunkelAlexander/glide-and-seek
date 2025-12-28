@@ -90,5 +90,4 @@ trapped-in-ice
 - Player sprite: https://jordiebowen.weebly.com/3d-modelling--animation/3d-pixel-character
 - Background music: https://opengameart.org/content/ice-shine-bells
 - Also check out this amazing blog post: https://www.jeremyenglish.org/ice-maze.html
-
-
+- Snow sound: https://opengameart.org/content/walking-on-snow-sound
