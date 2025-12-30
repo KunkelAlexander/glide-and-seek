@@ -1,4 +1,4 @@
-# Glide and seek
+# Glide and Seek
 
 An ice maze game: step onto ice, commit to the slide, and try not to get stuck.
 I used to love these in the Pokémon games.
