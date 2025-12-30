@@ -24,7 +24,7 @@ tile_map_data = PackedByteArray("AAD5//r/AgACAAAAAAD5//v/AgACAAAAAAD5//z/AgACAAA
 tile_set = ExtResource("1_jm1iu")
 
 [node name="SpawnPoint" type="Node2D" parent="." groups=["entrance_a"]]
-position = Vector2(-32, 224)
+position = Vector2(-61, 35)
 
 [node name="Grid" type="Node2D" parent="." node_paths=PackedStringArray("world") groups=["grid"]]
 script = ExtResource("2_pbc48")
