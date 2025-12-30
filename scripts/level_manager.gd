@@ -1,6 +1,6 @@
 extends Node
 
-@export var fade_time := 0.4
+@export var fade_time := 1.0
 
 var transitioning := false
 

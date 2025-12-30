@@ -212,7 +212,6 @@ script = ExtResource("3_tbgi4")
 
 [node name="Fade" type="CanvasLayer" parent="."]
 layer = 100
-visible = false
 
 [node name="FadeRect" type="ColorRect" parent="Fade"]
 anchors_preset = 15
@@ -246,6 +245,7 @@ offset_left = 32.0
 offset_top = 32.0
 offset_right = 361.0
 offset_bottom = 120.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_tbgi4")
 theme_override_font_sizes/font_size = 96
 text = "Glide and Seek"
@@ -277,6 +277,7 @@ Reset: R"
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="Controls"]
+modulate = Color(0.370364, 0.370364, 0.370364, 1)
 custom_minimum_size = Vector2(20, 10)
 anchors_preset = 1
 anchor_left = 1.0
