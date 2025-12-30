@@ -8,13 +8,17 @@ I used to love these in the Pokémon games.
 
 
 ## Features
-- Built two small levels using the TileMap editor.
+- Built four small levels and a level selection using the TileMap editor.
 - Implemented grid-locked movement + ice sliding (no physics bodies).
 - Added ladders as exits to swap levels and respawn at entrances.
 - Added a camera that follows the player and zooms in on high-resolution screens
 - Hooked up background music.
 - Levels are authored in Godot's TileMap editor - every level corresponds to a separate scene.
 - Logic is kept on a plain-color TileMap layer (walls / ice / exits), with visuals layered on top.
+
+## TODO
+- Add traps like holes as well as moving objects.
+- There should be a goal: Player should collect an item in every level and get a reward for collecting all items in a game.
 
 ## Devlog
 
@@ -52,11 +56,6 @@ Add separate logical tilemap layer describing the level logic. This means that t
 <img src="figures/Screenshot from 2025-12-27 23-03-03.png" width="800" alt="How to design for mobile devices">
 
 Add a reset button, update camera upon viewport resize to show 30 tiles in the longest display direction.
-
-### 6. TODO
-
-- Add traps like holes as well as moveable elements.
-- Player should collect an item in every level and get a reward for collecting all items in a game session.
 
 ## How to run
 
