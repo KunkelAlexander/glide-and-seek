@@ -49,6 +49,11 @@ Add separate logical tilemap layer describing the level logic. This means that t
 
 Add a reset button, update camera upon viewport resize to show 30 tiles in the longest display direction.
 
+### 6. TODO
+
+- Add traps like holes as well as moveable elements.
+- Player should collect an item in every level and get a reward for collecting all items in a game session.
+
 ## How to run
 
 ### Godot
