@@ -3,6 +3,10 @@
 An ice maze game: step onto ice, commit to the slide, and try not to get stuck.
 I used to love these in the Pokémon games.
 
+
+<img src="figures/gameplay.gif" width="800" alt="A short movie showing the intro animation">
+
+
 ## Features
 - Built two small levels using the TileMap editor.
 - Implemented grid-locked movement + ice sliding (no physics bodies).

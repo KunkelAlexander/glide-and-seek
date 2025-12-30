@@ -21,6 +21,10 @@ config/icon="uid://b0gc62lo7p382"
 
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="/home/xerox/Documents/Programming/glide-and-seek/figures/movie.avi"
+
 [global_group]
 
 level_manager=""
