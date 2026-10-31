@@ -20,6 +20,36 @@ I used to love these in the Pokémon games.
 - Add traps like holes as well as moving objects.
 - There should be a goal: Player should collect an item in every level and get a reward for collecting all items in a game.
 
+# Solutions
+
+## Level 2
+
+![Level 2 solution](tools/solutions/level_2.svg)
+
+## Level 3
+
+![Level 3 solution](tools/solutions/level_3.svg)
+
+## Level 4
+
+![Level 4 solution](tools/solutions/level_4.svg)
+
+## Level 5
+
+![Level 5 solution](tools/solutions/level_5.svg)
+
+## Level 6
+
+![Level 6 solution](tools/solutions/level_6.svg)
+
+## Level tooling
+
+Levels can still be drawn by hand in the TileMap editor. For harder puzzles there is a small pipeline in `tools/`:
+
+- `tools/levelkit.py solve scenes/level_3.tscn` prints the shortest solution (key presses) to every ladder. It reads the Logic layer, so it also checks hand-made levels.
+- `tools/search_level.rs` searches for rock layouts with a long, unique shortest solution (`rustc -O tools/search_level.rs`).
+- `tools/levelkit.py build tools/levels/level_6.txt scenes/level_6.tscn` turns an ASCII map into a finished scene, visuals included. The scene can be polished in the editor afterwards.
+
 ## Devlog
 
 ### 1. How to make levels?
