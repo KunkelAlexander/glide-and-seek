@@ -23,8 +23,8 @@ TILE = 32
 
 # Logic tileset (source 2 in assets/ice.tres)
 LOGIC_SRC = 2
-GROUND, ICE, WALL, EXIT = (0, 0), (1, 0), (2, 0), (3, 0)
-EXIT_TILES = {(3, 0), (0, 1), (1, 1), (2, 1), (3, 1), (4, 1)}
+GROUND, ICE, WALL, EXIT, WIN = (0, 0), (1, 0), (2, 0), (3, 0), (0, 2)  # WIN: ladder that ends the game (ASCII 'G')
+EXIT_TILES = {(3, 0), (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (0, 2)}
 
 # Field origin in world cells, matching level_3.tscn so the camera framing is the same
 X0, Y0 = -1, 1
@@ -91,7 +91,7 @@ def read_ascii(path):
 
 
 def grid_from_ascii(rows):
-    names = {"~": "ice", ".": "ground", "#": "wall", "E": "exit", "S": "ground"}
+    names = {"~": "ice", ".": "ground", "#": "wall", "E": "exit", "G": "exit", "S": "ground"}
     grid, spawn = {}, None
     for ry, row in enumerate(rows):
         for rx, ch in enumerate(row):
@@ -225,6 +225,11 @@ def build_layers(rows):
         if kind == "wall" and X0 <= cell[0] <= x1 and Y0 <= cell[1] <= y1:  # rocks only; the rim is drawn above
             fore[cell] = (0, 5, 19)
 
+    for ry, row in enumerate(rows):  # 'G' = goal ladder that shows the reward screen
+        for rx, ch in enumerate(row):
+            if ch == "G":
+                logic[(rx + X0, ry + Y0)] = logic[(rx + X0, ry + Y0 + 1)] = (LOGIC_SRC,) + WIN
+
     for cell in [c for c, k in grid.items() if k == "exit" and grid.get((c[0], c[1] - 1)) != "exit"]:
         floor.update(ladder_pocket_cells(*cell))
         fore[cell], fore[(cell[0], cell[1] + 1)] = (0, 6, 7), (0, 6, 8)
@@ -240,6 +245,9 @@ def cmd_build(ascii_path, out_path, template=ROOT / "scenes" / "level_5.tscn"):
     rows = read_ascii(ascii_path)
     layers, spawn = build_layers(rows)
     text = template.read_text(encoding="utf8")
+    # the template level carries its collectible star (and the script it uses); new levels start without one
+    text = re.sub(r'\n\[node name="Star".*?(?=\n\[|\Z)', "", text, flags=re.S)
+    text = re.sub(r'\n\[ext_resource [^\n]*id="star_gd"\]', "", text)
     for name, cells in layers.items():
         m = re.search(r'\[node name="%s" type="TileMapLayer".*?(?=\n\[|\Z)' % name, text, re.S)
         line = f'tile_map_data = PackedByteArray("{encode(cells)}")'

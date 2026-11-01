@@ -1,9 +1,11 @@
 [gd_scene load_steps=3 format=4 uid="uid://cakg5w15qvsu"]
 
 [ext_resource type="TileSet" uid="uid://byhwxjgsqd3sg" path="res://assets/ice.tres" id="1_4nkto"]
+[ext_resource type="Script" path="res://scripts/hub.gd" id="hub_gd"]
 [ext_resource type="Script" uid="uid://doj5eiul5yo1k" path="res://scripts/grid.gd" id="2_fcfvj"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("hub_gd")
 
 [node name="Logic" type="TileMapLayer" parent="."]
 visible = false

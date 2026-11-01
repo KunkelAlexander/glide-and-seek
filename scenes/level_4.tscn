@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://2ufvrr2mx6kn"]
+[gd_scene load_steps=4 format=4 uid="uid://2ufvrr2mx6kn"]
 
 [ext_resource type="TileSet" uid="uid://byhwxjgsqd3sg" path="res://assets/ice.tres" id="1_6malg"]
 [ext_resource type="Script" uid="uid://doj5eiul5yo1k" path="res://scripts/grid.gd" id="2_6j14n"]
+[ext_resource type="Script" path="res://scripts/star.gd" id="star_gd"]
 
 [node name="Level" type="Node2D"]
 
@@ -29,3 +30,8 @@ position = Vector2(288, 64)
 [node name="Grid" type="Node2D" parent="." node_paths=PackedStringArray("world") groups=["grid"]]
 script = ExtResource("2_6j14n")
 world = NodePath("../Logic")
+
+[node name="Star" type="Sprite2D" parent="." groups=["star"]]
+position = Vector2(496, 80)
+script = ExtResource("star_gd")
+star_id = "level_4"

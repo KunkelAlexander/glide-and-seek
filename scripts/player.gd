@@ -29,6 +29,7 @@ enum State {
 
 var state := State.IDLE
 var slide_dir := Vector2i.ZERO
+var slide_len := 0
 
 
 func _ready():
@@ -65,7 +66,7 @@ func _release_touch():
 
 			
 func _process(_delta):
-	if state != State.IDLE:
+	if state != State.IDLE or grid == null:
 		return
 
 	var dir := Vector2i.ZERO
@@ -113,6 +114,7 @@ func initialize(new_grid: Node, _spawn_world_pos: Vector2):
 	update_animation(false)
 
 func reset_game():
+	get_tree().get_first_node_in_group("level_manager").stats.resets += 1
 	initialize(grid, spawn_world_pos)
 	
 func attempt_move(dir: Vector2i):
@@ -124,6 +126,10 @@ func attempt_move(dir: Vector2i):
 	if grid.is_blocked(target):
 		return
 
+	var manager := get_tree().get_first_node_in_group("level_manager")
+	manager.start_timer()
+	manager.stats.moves += 1
+
 	if grid.is_ice(target):
 		start_sliding(dir)
 	else:
@@ -133,6 +139,8 @@ func attempt_move(dir: Vector2i):
 func move_one_tile(cell: Vector2i):
 	state = State.MOVING
 	grid_pos = cell
+	count_tile()
+	collect_star()
 	update_animation(true)
 	
 	if walk_sfx:
@@ -157,6 +165,7 @@ func move_one_tile(cell: Vector2i):
 func start_sliding(dir: Vector2i):
 	state = State.SLIDING
 	slide_dir = dir
+	slide_len = 0
 	update_animation(false)
 	
 	if slide_sfx and not slide_sfx.playing:
@@ -181,6 +190,9 @@ func slide_step():
 
 	# Move into the next tile
 	grid_pos = next
+	slide_len += 1
+	count_tile()
+	collect_star()
 
 	var tween := create_tween()
 	tween.tween_property(
@@ -227,6 +239,21 @@ func update_animation(moving: bool):
 			Vector2i.RIGHT:
 				sprite.play("idle_right")
 
+func count_tile():
+	var stats = get_tree().get_first_node_in_group("level_manager").stats
+	stats.tiles += 1
+	stats.longest = max(stats.longest, slide_len)
+
+
+func collect_star():
+	var manager := get_tree().get_first_node_in_group("level_manager")
+	for star in get_tree().get_nodes_in_group("star"):
+		if not star.is_queued_for_deletion() and grid.world_to_grid(star.global_position) == grid_pos:
+			manager.collect_star(star.star_id)
+			star.queue_free()
+			pos_sfx.play()
+
+
 func check_for_exit():
 	if not grid.is_exit(grid_pos):
 		return
@@ -238,4 +265,7 @@ func check_for_exit():
 	var manager := get_tree().get_first_node_in_group("level_manager")
 	if manager:
 		pos_sfx.play()
-		manager.load_level_deferred(data.target, data.spawn)
+		if data.target == "win":
+			manager.win()
+		else:
+			manager.load_level_deferred(data.target, data.spawn)

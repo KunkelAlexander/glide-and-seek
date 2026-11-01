@@ -8,13 +8,13 @@ from pathlib import Path
 
 import levelkit as L
 
-LEVELS = (2, 3, 4, 5, 6)
+LEVELS = (2, 3, 4, 5, 6, 7)
 COLORS = {"ice": "#cfe8f5", "ground": "#d9c9a3", "wall": "#4b4f57", "exit": "#f0a030"}
 
 
 def route(grid, spawn):
     prev, dist = L.bfs(grid, spawn)
-    goals = sorted((d, c) for c, d in dist.items() if grid[c] == "exit" and c[0] != spawn[0])
+    goals = sorted((d, c) for c, d in dist.items() if grid[c] == "exit" and abs(c[0] - spawn[0]) + abs(c[1] - spawn[1]) > 3)
     goal = goals[0][1]
     moves, stops = L.path_to(prev, goal), [spawn]
     for m in moves:

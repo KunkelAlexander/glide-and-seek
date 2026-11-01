@@ -42,6 +42,18 @@ I used to love these in the Pokémon games.
 
 ![Level 6 solution](tools/solutions/level_6.svg)
 
+## Level 7 (final)
+
+Unlocks in the hub once all 5 orbs are collected. 143 moves, one optimal route.
+
+![Level 7 solution](tools/solutions/level_7.svg)
+
+<details><summary>Key presses</summary>
+
+`LLDLULDRURURURURDRDRURDRURDRDRDRDRDLULULULDLULDLDLURURURDLURURDRDRDRDLDLULURDLULDLDLDLDRDLDRURURDLURDRURURULDRDRULULURDRURURDLULDLDLULURULDLULL`
+
+</details>
+
 ## Level tooling
 
 Levels can still be drawn by hand in the TileMap editor. For harder puzzles there is a small pipeline in `tools/`:

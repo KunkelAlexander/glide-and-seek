@@ -11,6 +11,63 @@ var transitioning := false
 
 var current_level: Node = null
 
+const TOTAL_STARS := 5
+var collected := {}
+@onready var star_label: Label = $"../Stars/Label"
+
+
+var start_msec := -1
+var won := false
+var stats := {"moves": 0, "tiles": 0, "longest": 0, "resets": 0}
+@onready var reward: CanvasLayer = $"../Reward"
+@onready var reward_time: Label = $"../Reward/Center/Box/Time"
+
+
+func start_timer():
+	if start_msec < 0:
+		start_msec = Time.get_ticks_msec()
+
+
+func win():
+	var seconds := (Time.get_ticks_msec() - start_msec) / 1000
+	reward_time.text = "%d min %02d s" % [seconds / 60, seconds % 60]
+	reward.get_node("Center/Box/Stats").text = "
+".join([
+		"%d key presses, %d tiles of glide" % [stats.moves, stats.tiles],
+		"Longest slide: %d tiles. Wheee." % stats.longest,
+		"That is %d penguins laid end to end" % stats.tiles,
+		"Times you hit RESET: %d%s" % [stats.resets, " (flawless!)" if stats.resets == 0 else ""],
+		"Orbs collected: %d/%d" % [collected.size(), TOTAL_STARS],
+	])
+	won = true
+	get_tree().get_first_node_in_group("player").grid = null  # freeze input behind the reward screen
+	reward.visible = true
+	await get_tree().create_timer(1.5).timeout  # ignore the keys still held from the last slide
+	reward.get_node("Center/Box/Hint").visible = true
+
+
+func _input(event):  # before the GUI, so the reward overlay cannot swallow a tap
+	if won and reward.get_node("Center/Box/Hint").visible and (
+			(event is InputEventKey and event.pressed) or (event is InputEventScreenTouch and event.pressed)
+			or (event is InputEventMouseButton and event.pressed)):
+		restart()
+
+
+func restart():
+	won = false
+	start_msec = -1
+	stats = {"moves": 0, "tiles": 0, "longest": 0, "resets": 0}
+	collected.clear()
+	star_label.text = "STARS 0/%d" % TOTAL_STARS
+	reward.visible = false
+	reward.get_node("Center/Box/Hint").visible = false
+	load_level_deferred(starting_level, starting_spawn)
+
+
+func collect_star(id: String):
+	collected[id] = true
+	star_label.text = "STARS %d/%d" % [collected.size(), TOTAL_STARS]
+
 
 func _ready():
 	# Defer loading until the scene tree is fully ready
