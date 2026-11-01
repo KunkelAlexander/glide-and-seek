@@ -295,14 +295,21 @@ flat = true
 [node name="Stars" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="Stars"]
-offset_left = 32.0
-offset_top = 130.0
-theme_override_colors/font_color = Color(1, 0.85, 0.15, 1)
-theme_override_colors/font_outline_color = Color(0.3, 0.2, 0, 1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -332.0
+offset_top = 96.0
+offset_right = -32.0
+offset_bottom = 124.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.25, 0.65, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.2, 0.4, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("7_o6xl0")
 theme_override_font_sizes/font_size = 20
 text = "ORBS 0/5"
+horizontal_alignment = 2
 
 [node name="Reward" type="CanvasLayer" parent="."]
 layer = 50

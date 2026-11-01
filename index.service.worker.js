@@ -4,7 +4,7 @@
 // Incrementing CACHE_VERSION will kick off the install event and force
 // previously cached resources to be updated from the network.
 /** @type {string} */
-const CACHE_VERSION = '1793502667|21667989';
+const CACHE_VERSION = '1793505678|62736409';
 /** @type {string} */
 const CACHE_PREFIX = 'Glide and Seek-sw-cache-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
