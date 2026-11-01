@@ -302,7 +302,7 @@ theme_override_colors/font_outline_color = Color(0.3, 0.2, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("7_o6xl0")
 theme_override_font_sizes/font_size = 20
-text = "STARS 0/5"
+text = "ORBS 0/5"
 
 [node name="Reward" type="CanvasLayer" parent="."]
 layer = 50

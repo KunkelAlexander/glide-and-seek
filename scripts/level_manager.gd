@@ -58,7 +58,7 @@ func restart():
 	start_msec = -1
 	stats = {"moves": 0, "tiles": 0, "longest": 0, "resets": 0}
 	collected.clear()
-	star_label.text = "STARS 0/%d" % TOTAL_STARS
+	star_label.text = "ORBS 0/%d" % TOTAL_STARS
 	reward.visible = false
 	reward.get_node("Center/Box/Hint").visible = false
 	load_level_deferred(starting_level, starting_spawn)
@@ -66,7 +66,7 @@ func restart():
 
 func collect_star(id: String):
 	collected[id] = true
-	star_label.text = "STARS %d/%d" % [collected.size(), TOTAL_STARS]
+	star_label.text = "ORBS %d/%d" % [collected.size(), TOTAL_STARS]
 
 
 func _ready():
